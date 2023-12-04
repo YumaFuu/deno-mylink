@@ -2,9 +2,6 @@
 /** @jsxFrag Fragment */
 import { Hono } from "hono";
 import { Fragment, jsx, basicAuth } from "hono/middleware.ts";
-import { tailwindStyleTagInjector } from "./ui/twind.js";
-import presetTailwind from "https://esm.sh/@twind/preset-tailwind@1.1.4";
-import { withForms } from "https://esm.sh/@twind/forms@0.1.4";
 
 import {
   getSignedCookie,
@@ -17,15 +14,6 @@ const secret = "abc123"
 
 const kv = await Deno.openKv();
 const app = new Hono();
-app.use(
-  "*",
-  tailwindStyleTagInjector({
-    presets: [
-      presetTailwind(),
-      { theme: { preflight: withForms() } },
-    ],
-  }),
-);
 
 app.get("/:key", async (c) => {
   const { key } = c.req.param();

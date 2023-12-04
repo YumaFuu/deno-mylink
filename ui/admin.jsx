@@ -30,7 +30,6 @@ const AddItem = () => (
     hx-post="/api/new"
     hx-swap="beforeend"
     class="mb-4"
-    _="on htmx:afterRequest reset() me"
   >
     <div class="mb-2">
         <div class="flex row mb-2">
