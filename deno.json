@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "dev": "deno run -A --unstable --watch index.jsx"
+  },
+  "imports": {
+    "hono": "https://deno.land/x/hono@v3.10.5/mod.ts",
+    "hono/": "https://deno.land/x/hono@v3.10.5/"
+  }
+}
