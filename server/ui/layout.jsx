@@ -18,7 +18,7 @@ export const Layout = ({ children }) => {
       <body>
         <div class="p-4 w-full flex justify-center">
           <div id="root" class="w-8/12">
-            <h1 class="text-4xl font-bold mb-4">ispec Links</h1>
+            <h1 class="text-4xl font-bold mb-4">My Links</h1>
             ${children}
           </div>
         </div>
