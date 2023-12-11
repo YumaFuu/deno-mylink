@@ -18,7 +18,7 @@ app.get("/:key", async (c) => {
   if (url) {
     return c.redirect(url);
   } else {
-    return c.text("404 Not Found~", 404);
+    return c.redirect(`https://google.com/search?q=${key}`);
   }
 });
 
