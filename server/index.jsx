@@ -21,7 +21,7 @@ app.get("/:key", async (c) => {
   if (url) {
     return c.redirect(url);
   } else {
-    return c.redirect(`https://google.com/search?q=${key}`);
+    return c.redirect(encodeURI(`https://google.com/search?q=${key}`));
   }
 });
 
