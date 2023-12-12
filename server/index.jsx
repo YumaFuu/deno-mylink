@@ -1,7 +1,7 @@
 /** @jsx jsx */
 /** @jsxFrag Fragment */
 import { Hono } from "hono";
-import { basicAuth, Fragment, jsx } from "hono/middleware.ts";
+import { basicAuth, Fragment, jsx, logger } from "hono/middleware.ts";
 import { getSignedCookie, setSignedCookie } from "hono/helper.ts";
 
 import { Admin, Item } from "./ui/admin.jsx";
@@ -11,6 +11,7 @@ const secret = Deno.env.get("COOKIE_SECRET") || "mysecret"
 const kv = await Deno.openKv();
 const app = new Hono();
 
+app.use('*', logger())
 app.get("/:key", async (c) => {
   const { key } = c.req.param();
   const { value } = await kv.get([key]);
