@@ -13,7 +13,9 @@ const app = new Hono();
 
 app.get("/:key", async (c) => {
   const { key } = c.req.param();
-  const { value: url } = await kv.get([key]);
+  const { value } = await kv.get([key]);
+
+  const url = value?.url;
 
   if (url) {
     return c.redirect(url);
@@ -27,7 +29,7 @@ app.post("/api/new", async (c) => {
   if (!cookie) {
     return c.text("401 Unauthorized", 401);
   }
-  const { key, url } = await c.req.parseBody();
+  const { key, url, desc } = await c.req.parseBody();
 
   if (!url || !key) {
     return c.text("ERROR: Key and URL are required.", 400);
@@ -41,7 +43,7 @@ app.post("/api/new", async (c) => {
   if (!url.startsWith("http://") && !url.startsWith("https://")) {
     return c.text(`ERROR: Invalid URL '${url}'.`, 400);
   }
-  await kv.set([key], url);
+  await kv.set([key], { url, desc });
 
   return c.html(<Item key={key} url={url} />);
 });

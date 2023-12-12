@@ -1,7 +1,6 @@
 /** @jsx jsx */
 /** @jsxFrag Fragment */
-import { html } from "hono/helper.ts";
-import { Fragment, jsx, jsxRenderer } from "hono/middleware.ts";
+import { Fragment, jsx } from "hono/middleware.ts";
 import { Layout } from "./layout.jsx";
 
 const kv = await Deno.openKv();
@@ -11,14 +10,15 @@ export const Admin = async () => {
 
   const list = [];
   for await (const entry of entries) {
-    list.push({ key: entry.key[0], url: entry.value });
+    console.log(entry);
+    list.push({ key: entry.key[0], url: entry.value?.url, desc: entry.value?.desc });
   }
   return (
     <Layout>
       <div hx-ext="response-targets">
         <AddItem />
         <div id="items">
-          {list.map((item) => <Item key={item.key} url={item.url} /> )}
+          {list.map((item) => <Item key={item.key} url={item.url} desc={item.desc} /> )}
         </div>
       </div>
     </Layout>
@@ -39,6 +39,10 @@ const AddItem = () => (
         <label class="mb-1 w-20 text-gray-100" for="key">Key</label>
         <input name="key" type="text" class="border w-7/12" />
       </div>
+      <div class="flex mb-2">
+        <label class="mb-1 w-20 text-gray-100" for="desc">Desc</label>
+        <input name="desc" type="text" class="border w-7/12" />
+      </div>
       <div class="flex ">
         <label class="mb-1 w-20 text-gray-100" for="url">URL</label>
         <input name="url" type="text" class="border w-7/12" />
@@ -54,10 +58,10 @@ const AddItem = () => (
   </form>
 );
 
-export const Item = ({ key, url }) => {
+export const Item = ({ key, url, desc }) => {
   return (
     <div
-      id={ key }
+      id={ 'id-' + key }
       class="
         flex row items-center justify-between
         py-1 px-2 my-1 rounded-lg text-lg
@@ -67,6 +71,9 @@ export const Item = ({ key, url }) => {
       <div class="flex flex-col">
         <p class="font-medium text-slate-800">
           {key}
+        </p>
+        <p class="text-sm text-slate-800">
+          {desc}
         </p>
         <a href={url} class="text-left" target="_blank">
           {url}
