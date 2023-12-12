@@ -10,7 +10,6 @@ export const Admin = async () => {
 
   const list = [];
   for await (const entry of entries) {
-    console.log(entry);
     list.push({ key: entry.key[0], url: entry.value?.url, desc: entry.value?.desc });
   }
   return (
@@ -18,7 +17,7 @@ export const Admin = async () => {
       <div hx-ext="response-targets">
         <AddItem />
         <div id="items">
-          {list.map((item) => <Item key={item.key} url={item.url} desc={item.desc} /> )}
+          {list.map((item) => <Item key={item.key} url={item.url} desc={item.desc} />)}
         </div>
       </div>
     </Layout>
@@ -32,7 +31,7 @@ const AddItem = () => (
     hx-target="#items"
     hx-target-error="#error"
     hx-on="htmx:beforeRequest: document.getElementById('error').innerHTML = ''"
-    class="mb-5 flex flex-col h-32 justify-between"
+    class="mb-7 flex flex-col h-32 justify-between"
   >
     <div class="mb-3">
       <div class="flex mb-2">
@@ -50,7 +49,7 @@ const AddItem = () => (
     </div>
     <button
       type="submit"
-      class="border py-1 px-2 rounded w-20 hover:bg-gray-200 mb-2 bg-gray-100"
+      class="border py-1 px-2 rounded w-20 hover:bg-gray-200 mb-3 bg-gray-100"
     >
       作成
     </button>
@@ -65,17 +64,19 @@ export const Item = ({ key, url, desc }) => {
       class="
         flex row items-center justify-between
         py-1 px-2 my-1 rounded-lg text-lg
-        border bg-gray-100
+        border bg-gray-200
       "
     >
       <div class="flex flex-col">
-        <p class="font-medium text-slate-800">
-          {key}
-        </p>
-        <p class="text-sm text-slate-800">
-          {desc}
-        </p>
-        <a href={url} class="text-left" target="_blank">
+        <div class="flex items-center mb-1">
+          <span class="font-medium text-slate-800 mr-3">
+            {key}
+          </span>
+          <span class="text-sm text-slate-800">
+            {desc}
+          </span>
+        </div>
+        <a href={url} class="text-left text-sm" target="_blank">
           {url}
         </a>
       </div>
@@ -83,7 +84,7 @@ export const Item = ({ key, url, desc }) => {
         class="text-sm text-red-600 "
         hx-delete={`/api/${key}`}
         hx-swap="delete"
-        hx-target={"#"+key}
+        hx-target={"#id-"+key}
       >
         Delete
       </button>
