@@ -16,9 +16,9 @@ export const Layout = ({ children }) => {
         <title>My Links</title>
       </head>
       <body>
-        <div class="p-4 w-full flex justify-center">
+        <div class="p-4 w-full h-screen flex justify-center bg-gray-800">
           <div id="root" class="w-8/12">
-            <h1 class="text-4xl font-bold mb-4">My Links</h1>
+            <h1 class="text-4xl font-bold mb-4 text-white">My Links</h1>
             ${children}
           </div>
         </div>

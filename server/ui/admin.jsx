@@ -36,17 +36,17 @@ const AddItem = () => (
   >
     <div class="mb-3">
       <div class="flex mb-2">
-        <label class="mb-1 w-20" for="key">Key</label>
+        <label class="mb-1 w-20 text-gray-100" for="key">Key</label>
         <input name="key" type="text" class="border w-7/12" />
       </div>
       <div class="flex ">
-        <label class="mb-1 w-20" for="url">URL</label>
+        <label class="mb-1 w-20 text-gray-100" for="url">URL</label>
         <input name="url" type="text" class="border w-7/12" />
       </div>
     </div>
     <button
       type="submit"
-      class="border py-1 px-2 rounded w-20 hover:bg-gray-200 mb-2"
+      class="border py-1 px-2 rounded w-20 hover:bg-gray-200 mb-2 bg-gray-100"
     >
       作成
     </button>
@@ -65,7 +65,7 @@ export const Item = ({ key, url }) => {
       "
     >
       <div class="flex flex-col">
-        <p class="font-medium">
+        <p class="font-medium text-slate-800">
           {key}
         </p>
         <a href={url} class="text-left" target="_blank">
